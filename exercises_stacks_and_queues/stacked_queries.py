@@ -10,9 +10,11 @@ def stacked_queries(num):
             if len(stack) > 0:
                 stack.pop()
         elif query == '3':
-            print(max(stack))
+            if len(stack) > 0:
+                print(max(stack))
         elif query == '4':
-            print(min(stack))
+            if len(stack) > 0:
+                print(min(stack))
 
     print(', '.join([str(i) for i in reversed(stack)]))
 

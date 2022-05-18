@@ -1,5 +1,5 @@
 def reverse_numbers(seq):
-    stack = [i for i in seq.split(' ')]
+    stack = seq.split(' ')
     reversed_nums = ''
     while stack:
         num = stack.pop()
