@@ -15,8 +15,8 @@ def key_revolver(b_price, gun_barrel, bullets, locks, value_of_int):
         if bullet > lock:
             print('Ping!')
         else:
-            locks_que.popleft()
             print('Bang!')
+            locks_que.popleft()
 
         if not bullets_left and len(bullets_stack):
             print('Reloading!')
