@@ -2,50 +2,42 @@ from collections import deque
 
 
 def xroads(green_secs, free_w_secs):
-
-    queue_of_cars = deque()
-    passed_cars = 0
-    green = True
-    free = True
-    crash = False
+    cars = deque()
     command = input()
-    last_char = ''
-    car_hit = ''
-
+    cars_passed = 0
+    crash = False
     while command != 'END':
         if command == 'green':
-            current_green_secs = green_secs
-            seconds_to_exit = free_w_secs
-            while queue_of_cars:
-                if crash:
-                    break
-                car = queue_of_cars.popleft()
+            green = True
+            current_g_secs = green_secs
+            while cars:
                 if green:
-                    for ch in range(len(car)):
-                        if green:
-                            current_green_secs -= 1
-                        if current_green_secs == 0 and free:
-                            green = False
-                            seconds_to_exit -= 1
-                            if seconds_to_exit < 0:
-                                last_char += car[ch + 1]
-                                car_hit += car
-                                crash = True
-                                break
+                    car = cars.popleft()
+                    current_length_of_car = len(car)
+                    if current_g_secs < len(car):
+                        green = False
+                        time_to_exit = current_g_secs + free_w_secs
+                        if abs(current_length_of_car - current_g_secs) > time_to_exit:
+                            print('A crash happened!')
+                            print(f'{car} was hit at {car[-(current_length_of_car-time_to_exit)]}.')
+                            crash = True
+                            break
+                        else:
+                            cars_passed += 1
                     else:
-                        passed_cars += 1
-        elif crash:
+                        current_g_secs -= len(car)
+                        cars_passed += 1
+                else:
+                    break
+        if crash:
             break
         else:
-            queue_of_cars.append(command)
+            cars.append(command)
         command = input()
 
-    if crash:
-        print('A crash happened!')
-        print(f'{car_hit} was hit at {last_char}.')
-    else:
+    if not crash:
         print('Everyone is safe.')
-        print(f'{passed_cars} total cars passed the crossroads.')
+        print(f'{cars_passed} total cars passed the crossroads.')
 
 
 green_seconds = int(input())
