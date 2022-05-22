@@ -4,7 +4,7 @@ def longest_intersection(iters):
     first_range = set()
     second_range = set()
 
-    intersections = []
+    intersections = set()
 
     for _ in range(iters):
         ranges = input().split('-')
@@ -20,13 +20,12 @@ def longest_intersection(iters):
         sets_intersection = first_range.intersection(second_range)
 
         if len(sets_intersection) > len(intersections):
-            intersections.clear()
-            intersections.append(first_range.intersection(second_range))
+            intersections = sets_intersection
 
         first_range.clear()
         second_range.clear()
 
-    print(f'Longest intersection is {[i for i in intersections[0]]} with length {len(intersections[0])}')
+    print(f'Longest intersection is {[i for i in intersections]} with length {len(intersections)}')
 
 
 iterations = int(input())
