@@ -34,11 +34,11 @@ def santas_presents(materials, magic):
         elif sum == 150:
             presents['Doll'] += 1
         elif sum < 0:
-            materials.append(abs(last_material + first_magic))
+            materials.append(last_material + first_magic)
         else:
             materials.append(last_material + 15)
 
-    if (presents['Doll'] and presents['Wooden Train']) or (presents['Bicycle'] and presents['Teddy bear']):
+    if (presents['Doll'] > 0 and presents['Wooden Train'] > 0) or (presents['Bicycle'] > 0 and presents['Teddy bear'] > 0):
         print("The presents are crafted! Merry Christmas!")
     else:
         print("No presents this Christmas!")

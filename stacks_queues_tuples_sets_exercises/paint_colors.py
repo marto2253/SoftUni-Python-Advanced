@@ -1,37 +1,54 @@
+from collections import deque
+
 
 def paint_colors(seq):
 
     main_colors = ['red', 'yellow', 'blue']
     secondary_colors = ['orange', 'purple', 'green']
 
-    result = []
-    temp = []
+    colors = []
 
     while seq:
-        first_item = seq.pop(0)
-        if len(seq) != 0:
-            last_item = seq.pop()
+        first_word = seq.popleft()
+        last_word = seq.pop() if seq else ''
 
-        if first_item + last_item in main_colors or first_item in main_colors:
-            result.append(first_item+last_item)
-        elif last_item + first_item in main_colors:
-            result.append(last_item + first_item)
-        elif first_item + last_item in secondary_colors:
-            temp.append(first_item+last_item)
-        elif last_item + first_item in secondary_colors:
-            temp.append(last_item+first_item)
+        result = first_word + last_word
+        if result in main_colors or result in secondary_colors:
+            colors.append(result)
+            continue
+
+        result = last_word + first_word
+        if result in main_colors or result in secondary_colors:
+            colors.append(result)
+            continue
+
+        if first_word:
+            seq.insert(len(seq) // 2, first_word[:-1])
+        if last_word:
+            seq.insert(len(seq) // 2, last_word[:-1])
+
+    result = []
+
+    pairs = {
+        'orange': ['yellow', 'red'],
+        'purple': ['blue', 'red'],
+        'green': ['blue', 'yellow'],
+    }
+
+    for color in colors:
+        if color in main_colors:
+            result.append(color)
         else:
-            first_item = first_item[0:-1]
-            last_item = last_item[0:-1]
+            is_collected = True
+            for helper_color in pairs[color]:
+                if helper_color not in colors:
+                    is_collected = False
 
-            length = len(seq) // 2
-
-            seq.insert(length, first_item+last_item)
-
-        last_item = ''
+            if is_collected:
+                result.append(color)
 
     print(result)
 
 
-sequence = input().split()
+sequence = deque(i for i in input().split())
 paint_colors(sequence)
