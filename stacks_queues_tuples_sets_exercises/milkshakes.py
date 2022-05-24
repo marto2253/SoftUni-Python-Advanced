@@ -7,21 +7,20 @@ def milkshakes(chocalates, milk):
 
     while True:
 
-        if counter == 5:
-            break
-        elif len(chocalates) == 0:
-            break
-        elif len(milk) == 0:
+        if counter == 5 or len(chocalates) == 0 or len(milk) == 0:
             break
 
         last_chock = chocalates[-1]
         first_milk_shake = milk[0]
 
-        if last_chock <= 0:
+        if last_chock <= 0 and first_milk_shake <= 0:
+            chocalates.pop()
+            milk.popleft()
+            continue
+        elif last_chock <= 0:
             chocalates.pop()
             continue
-
-        if first_milk_shake <= 0:
+        elif first_milk_shake <= 0:
             milk.popleft()
             continue
 

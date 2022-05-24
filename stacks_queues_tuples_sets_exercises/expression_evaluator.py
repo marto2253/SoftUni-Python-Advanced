@@ -3,19 +3,25 @@ from collections import deque
 
 def expression_eval(seq):
 
-    result = 0
-    current_seq = []
-    while seq:
-        item = seq.popleft()
+    numbers = deque()
 
-        if item in '-/+*':
-            pass
+    for ch in seq:
+        if ch in '-+/*':
+            while len(numbers) > 1:
+                left = numbers.popleft()
+                right = numbers.popleft()
+
+                if ch == '/':
+                    result = eval(f'{left} {"//"} {right}')
+                else:
+                    result = eval(f'{left} {ch} {right}')
+
+                numbers.appendleft(result)
         else:
-            current_seq.append(int(item))
-            current_seq.append('%')
+            numbers.append(ch)
 
-    print(int(result))
+    print(numbers.popleft())
 
 
-sequence = deque(input().split())
+sequence = input().split()
 expression_eval(sequence)

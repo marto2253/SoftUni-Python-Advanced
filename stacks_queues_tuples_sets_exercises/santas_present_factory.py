@@ -1,5 +1,6 @@
 from collections import deque
 
+
 def santas_presents(materials, magic):
 
     presents = {
@@ -10,50 +11,41 @@ def santas_presents(materials, magic):
     }
 
     while materials and magic:
-        last_material = materials[-1]
-        first_magic = magic[0]
+        last_material = materials.pop()
+        first_magic = magic.popleft()
 
-        if last_material == 0:
-            materials.pop()
+        if last_material == 0 and first_magic == 0:
             continue
-        if first_magic == 0:
-            magic.popleft()
+        elif last_material == 0:
+            magic.appendleft(first_magic)
+            continue
+        elif first_magic == 0:
+            materials.append(last_material)
             continue
 
         sum = last_material * first_magic
 
         if sum == 400:
             presents['Bicycle'] += 1
-            magic.popleft()
-            materials.pop()
         elif sum == 300:
             presents['Teddy bear'] += 1
-            magic.popleft()
-            materials.pop()
         elif sum == 250:
             presents['Wooden Train'] += 1
-            magic.popleft()
-            materials.pop()
         elif sum == 150:
             presents['Doll'] += 1
-            magic.popleft()
-            materials.pop()
         elif sum < 0:
-            magic.popleft()
-            materials.pop()
             materials.append(abs(last_material + first_magic))
         else:
-            magic.popleft()
-            materials[-1] += 15
+            materials.append(last_material + 15)
 
-    if presents['Doll'] >= 1 and presents['Wooden Train'] >= 1 or presents['Bicycle'] >= 1 and presents['Teddy bear'] >= 1:
+    if (presents['Doll'] and presents['Wooden Train']) or (presents['Bicycle'] and presents['Teddy bear']):
         print("The presents are crafted! Merry Christmas!")
     else:
         print("No presents this Christmas!")
 
-    if len(materials) != 0:
-        print(f"Materials left: {', '.join(str(i) for i in materials)}")
-    if len(magic) != 0:
+    if materials:
+        print(f"Materials left: {', '.join(str(i) for i in reversed(materials))}")
+    if magic:
         print(f"Magic left: {', '.join(str(i) for i in magic)}")
 
     for present, count in sorted(presents.items()):

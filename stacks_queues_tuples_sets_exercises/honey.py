@@ -11,7 +11,10 @@ def honey(bees, nectar, symbols):
 
         if last_nectar >= first_bee:
             symbol = symbols.popleft()
-            total += abs(eval(f'{first_bee} {symbol} {last_nectar}'))
+            if symbol == '/' and last_nectar == 0:
+                total += 0
+            else:
+                total += abs(eval(f'{first_bee} {symbol} {last_nectar}'))
             bees.popleft()
             nectar.pop()
         else:

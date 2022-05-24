@@ -26,9 +26,7 @@ def numbers(seq_one, seq_two):
                     if i.isdigit() and int(i) in seq_two:
                         seq_two.remove(int(i))
         else:
-            if seq_one.issubset(seq_two):
-                print('True')
-            elif seq_two.issubset(seq_one):
+            if seq_one.issubset(seq_two) or seq_two.issubset(seq_one):
                 print('True')
             else:
                 print('False')
