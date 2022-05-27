@@ -1,86 +1,53 @@
+def get_children(row, column, size):
+    possibilities = [
+        [row - 1, column - 1],
+        [row - 1, column],
+        [row - 1, column + 1],
+        [row, column - 1],
+        [row, column + 1],
+        [row + 1, column - 1],
+        [row + 1, column],
+        [row + 1, column + 1],
+    ]
+
+    result = []
+
+    for child_row, child_col in possibilities:
+        if 0 <= child_row < size and 0 <= child_col < size and matrix[child_row][child_col] > 0:
+            result.append([child_row, child_col])
+
+    return result
+
 
 size = int(input())
-
-commands = [i for i in input().split()]
-
 matrix = []
 
 for _ in range(size):
-    sequenece = input().split()
-    matrix.append(sequenece)
+    matrix.append([int(i) for i in input().split()])
 
-coal_quantity = 0
-collected_coal = 0
-start = []
-for row in range(size):
-    for column in range(size):
-        if matrix[row][column] == 's':
-            start.append(row)
-            start.append(column)
-        if matrix[row][column] == 'c':
-            coal_quantity += 1
-
-gameOver = False
+commands = input().split()
 
 for command in commands:
-    row = int(start[0])
-    column = int(start[1])
-    if command == 'right':
-        if column + 1 <= size - 1:
-            start[1] += 1
-            updated_matrix = matrix[row][start[1]]
-            if updated_matrix == 'c':
-                collected_coal += 1
-                if coal_quantity == collected_coal:
-                    break
-                matrix[row][start[1]] = '*'
-            elif updated_matrix == 'e':
-                print(f'Game over! {start[0], start[1]}')
-                gameOver = True
-                break
-    elif command == 'left':
-        if 0 <= column - 1 <= size -1 :
-            start[1] -= 1
-            updated_matrix = matrix[row][start[1]]
-            if updated_matrix == 'c':
-                collected_coal += 1
-                if coal_quantity == collected_coal:
-                    break
-                matrix[row][start[1]] = '*'
-            elif updated_matrix == 'e':
-                print(f'Game over! {start[0], start[1]}')
-                gameOver = True
-                break
-    elif command == 'down':
-        if row + 1 <= size -1 :
-            start[0] += 1
-            updated_matrix = matrix[start[0]][column]
-            if updated_matrix == 'c':
-                collected_coal += 1
-                if coal_quantity == collected_coal:
-                    break
-                matrix[start[0]][column] = '*'
-            elif updated_matrix == 'e':
-                print(f'Game over! {start[0], start[1]}')
-                gameOver = True
-                break
-    elif command == 'up':
-        if 0 <= row - 1 <= size - 1:
-            start[0] -= 1
-            updated_matrix = matrix[start[0]][column]
-            if updated_matrix == 'c':
-                collected_coal += 1
-                if coal_quantity == collected_coal:
-                    break
-                matrix[start[0]][column] = '*'
-            elif updated_matrix == 'e':
-                print(f'Game over! {start[0], start[1]}')
-                gameOver = True
-                break
+    row, column = [int(i) for i in command.split(',')]
+    bomb = int(matrix[row][column])
 
-if coal_quantity == collected_coal and not gameOver:
-    print(f'You collected all coal! {start[0], start[1]}')
-else:
-    if not gameOver:
-        print(f'{coal_quantity-collected_coal} pieces of coal left. {start[0], start[1]}')
+    if bomb > 0:
+        children = get_children(row, column, size)
+        matrix[row][column] = 0
+        for child_row, child_col in children:
+            matrix[child_row][child_col] -= bomb
 
+alive_cells = 0
+sum_alive_cells = 0
+
+for row in matrix:
+    for item in row:
+        if item > 0:
+            sum_alive_cells += int(item)
+            alive_cells += 1
+
+print(f'Alive cells: {alive_cells}')
+print(f'Sum: {sum_alive_cells}')
+
+for row in matrix:
+    print(*row, sep=' ')

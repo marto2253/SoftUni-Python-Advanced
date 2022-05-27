@@ -20,7 +20,9 @@ while command != 'END':
         if first in range(rows) and second in range(rows) and third in range(rows) and fourth in range(rows) and \
             first in range(columns) and second in range(columns) and third in range(columns) and fourth in range(columns):
             matrix[first][second], matrix[third][fourth] = matrix[third][fourth], matrix[first][second]
-            print(matrix)
+
+            for row in matrix:
+                print(*row, sep=' ')
         else:
             print('Invalid input!')
     else:
