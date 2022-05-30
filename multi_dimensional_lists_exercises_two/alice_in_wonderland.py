@@ -8,6 +8,7 @@ def get_direction(commands, row, col):
     if commands == 'down':
         return row + 1, col
 
+
 size = int(input())
 
 alice_row = 0
@@ -21,7 +22,6 @@ for row in range(size):
         if row_elements[column] == "A":
             alice_row, alice_column = row, column
     matrix.append(row_elements)
-
 
 # directions = {
 #     'right': lambda r, c: (r, c + 1),
@@ -61,5 +61,3 @@ else:
 
 for row in matrix:
     print(*row, sep=' ')
-
-
