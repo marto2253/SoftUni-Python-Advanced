@@ -14,7 +14,7 @@ for line in file:
         elif letter in punctuation:
             punctuation_count += 1
 
-    print(f'Line {line_number}: {line} ({letters_count})({punctuation_count})')
+    print(f'Line {line_number}: {line.strip()} ({letters_count})({punctuation_count})')
     line_number += 1
     punctuation_count = 0
     letters_count = 0

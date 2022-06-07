@@ -16,20 +16,21 @@ while commands != 'End':
     elif command == 'Add':
         content = commands[2]
         file = open(file_name, 'a')
-        file.write(content)
+        file.write(f'{content}\n')
         file.close()
     elif command == 'Replace':
         old_string = commands[2]
         new_string = commands[3]
 
         try:
-            file = open(file_name, 'r')
-            for line in file:
-                if old_string in line:
-                    line = line.replace(old_string, new_string)
+            file = open(file_name, 'r+')
+            file_content = file.read().replace(old_string, new_string)
+            file.seek(0)
+            file.truncate(0)
+            file.write(file_content)
             file.close()
         except FileNotFoundError:
-            print('"An error occurred')
+            print('An error occurred')
 
     elif command == 'Delete':
         try:
