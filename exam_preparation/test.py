@@ -1,3 +1,8 @@
-from string import ascii_lowercase
+ss = ['rose']
+aa = {'o', 's', 'e', 'r'}
+a = {'r', 'o', 's'}
+sss = set()
+# print(aa.union(ss))
 
-print(ascii_lowercase[0])
+if a in ss[0]:
+    print('yes')
