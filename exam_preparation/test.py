@@ -1,8 +1,9 @@
-ss = ['rose']
-aa = {'o', 's', 'e', 'r'}
-a = {'r', 'o', 's'}
-sss = set()
-# print(aa.union(ss))
+a = [
+        (3, "Amy"),
+        (1, "Tom"),
+        (7, "George"),
+        (3, "Katy"),
+    ],
 
-if a in ss[0]:
-    print('yes')
+for i in a:
+    print(i[0][0])
