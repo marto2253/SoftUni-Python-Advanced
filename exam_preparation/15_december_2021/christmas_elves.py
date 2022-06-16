@@ -3,9 +3,6 @@ from collections import deque
 elves_energy = deque(int(i) for i in input().split())
 num_of_materials = [int(i) for i in input().split()]
 
-# print(elves_energy)
-# print(num_of_materials)
-
 counter = 0
 toys_created = 0
 energy_spent = 0
