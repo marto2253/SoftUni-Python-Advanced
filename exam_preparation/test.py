@@ -1,3 +1,4 @@
-pp = {
-    player_one
-}
+print(type(2))
+
+if type(2) is int:
+    print('yes')
