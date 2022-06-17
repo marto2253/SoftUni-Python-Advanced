@@ -8,7 +8,7 @@ for _ in range(size):
 
 points = {
     player_one: 501,
-    player_two: 501,
+    player_two: 501
 }
 
 turn = 1
@@ -16,9 +16,6 @@ round_number = 0
 current_player = ''
 
 while True:
-
-    if points[player_one] <= 0 or points[player_two] <= 0:
-        break
 
     command = input().replace('(', '').replace(')', '').split(', ')
     points_to_deduct = 0
@@ -44,6 +41,9 @@ while True:
         points[current_player] -= points_to_deduct * 3
     elif matrix[row][column].isdigit():
         points[current_player] -= int(matrix[row][column])
+
+    if points[player_one] <= 0 or points[player_two] <= 0:
+        break
 
     turn += 1
 
